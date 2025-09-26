@@ -1,9 +1,14 @@
-var map = L.map('map').setView([51.505, -0.09], 13);
+let h2 = document.querySelector("h2");
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
- 
-L.marker([51.5, -0.09]).addTo(map)
-    .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-    .openPopup();
+function success(pos) {
+    console.log(pos.coords.latitude, pos.coords.longitude);
+    h2.textContent = `Latitude: ${pos.coords.latitude}, Longitude: ${pos.coords.longitude}`;
+};
+function error(errorLocation) {
+    console.log(errorLocation);
+}
+var watchID = navigator.geolocation.watchPosition(success, error, {
+
+});
+
+//navigator.geolocation.clearWatch(watchID)
